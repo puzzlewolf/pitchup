@@ -4,7 +4,10 @@ buildscript {
 
     repositories {
         maven { url 'https://maven.google.com' }
-        jcenter()
+        mavenCentral()
+        google()
+        // gradle-bintray-plugin
+        maven { url "https://plugins.gradle.org/m2/" }
     }
     dependencies {
         classpath "com.android.tools.build:gradle:$gradle_version"
@@ -16,10 +19,16 @@ buildscript {
 
 allprojects {
     repositories {
-        jcenter()
         maven { url "https://jitpack.io" }
         mavenCentral()
         google()
+        maven {
+            url "https://jcenter.bintray.com"
+            content {
+                includeModule("com.github.anastr", "speedviewlib")
+                includeModule("com.yarolegovich", "discrete-scrollview")
+            }
+        }
     }
 }
 
