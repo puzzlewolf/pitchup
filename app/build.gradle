@@ -5,13 +5,13 @@ apply plugin: 'kotlin-kapt'
 
 
 android {
-    compileSdkVersion 27
+    compileSdkVersion 30
 
 
     defaultConfig {
         applicationId "com.lbbento.pitchup"
         minSdkVersion 19
-        targetSdkVersion 27
+        targetSdk 30
         versionCode 1
         versionName "1.0.0"
 
