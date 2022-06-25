@@ -27,16 +27,16 @@ android {
 }
 
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
+    api fileTree(dir: 'libs', include: ['*.jar'])
 
     // Tests
-    testCompile "com.nhaarman:mockito-kotlin:$tests_mockito_kotlin_version"
-    testCompile "junit:junit:$tests_junit_version"
-    testCompile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+    testImplementation "com.nhaarman:mockito-kotlin:$tests_mockito_kotlin_version"
+    testImplementation "junit:junit:$tests_junit_version"
+    testImplementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
 
     //kotlin
-    compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+    api "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
 
     //SpeedView
-    compile "com.github.anastr:speedviewlib:$speedview_version"
+    api "com.github.anastr:speedviewlib:$speedview_version"
 }
