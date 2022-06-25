@@ -4,8 +4,7 @@ apply plugin: 'kotlin-android-extensions'
 
 
 android {
-    compileSdkVersion 26
-    buildToolsVersion "26.0.0"
+    compileSdkVersion 27
 
 
     defaultConfig {
@@ -22,6 +21,10 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+
+        debug {
+            applicationIdSuffix ".debug"
         }
     }
 
@@ -53,22 +56,21 @@ dependencies {
     testCompile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
 
     //Support
-    //noinspection GradleCompatible
-    compile "com.android.support:appcompat-v7:$support_app_compat_version"
-    //noinspection GradleCompatible
-    compile "com.android.support:design:$support_app_compat_version"
-    compile "com.android.support.constraint:constraint-layout:$support_constraint_layout_version"
+    implementation "com.android.support:appcompat-v7:$support_app_compat_version"
+    implementation "com.android.support:design:$support_app_compat_version"
+    implementation "com.android.support.constraint:constraint-layout:$support_constraint_layout_version"
+    implementation "com.android.support:recyclerview-v7:$support_app_compat_version"
 
     //kotlin
-    compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
 
     //RxKotlin
-    compile group: 'io.reactivex', name: 'rxkotlin', version: rx_kotlin
-    compile group: 'io.reactivex', name: 'rxandroid', version: rx_android
+    implementation group: 'io.reactivex', name: 'rxkotlin', version: rx_kotlin
+    implementation group: 'io.reactivex', name: 'rxandroid', version: rx_android
 
     //Dagger
-    compile "com.google.dagger:dagger:$dagger_version"
+    implementation "com.google.dagger:dagger:$dagger_version"
     kapt "com.google.dagger:dagger-compiler:$dagger_version"
 
-    compile 'com.yarolegovich:discrete-scrollview:1.2.0'
+    implementation 'com.yarolegovich:discrete-scrollview:1.4.7'
 }

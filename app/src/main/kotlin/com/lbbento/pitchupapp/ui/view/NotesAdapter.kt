@@ -13,12 +13,12 @@ class NotesAdapter : RecyclerView.Adapter<NotesAdapter.NotesViewHolder>() {
 
     override fun getItemCount() = items.size
 
-    override fun onBindViewHolder(viewHolder: NotesViewHolder?, position: Int) {
-        viewHolder!!.textNote.text = items[position]["note"]!!
+    override fun onBindViewHolder(viewHolder: NotesViewHolder, position: Int) {
+        viewHolder.textNote.text = items[position]["note"]!!
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): NotesViewHolder {
-        val view = LayoutInflater.from(parent!!.context).inflate(R.layout.view_pitchup_note_col, parent, false)
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NotesViewHolder {
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.view_pitchup_note_col, parent, false)
 
         return NotesViewHolder(view)
     }

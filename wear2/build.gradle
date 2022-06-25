@@ -6,7 +6,7 @@ android {
     publishNonDefault true
 
     compileSdkVersion 26
-    buildToolsVersion "26.0.0"
+
     defaultConfig {
         applicationId "com.lbbento.pitchup"
         minSdkVersion 20
@@ -32,11 +32,14 @@ android {
         test.java.srcDirs += 'src/test/kotlin'
     }
 
+    flavorDimensions "onetwo"
+
     productFlavors {
         wear1 {
-
+            dimension "onetwo"
         }
         wear2 {
+            dimension "onetwo"
             minSdkVersion 25
         }
     }
@@ -59,18 +62,18 @@ dependencies {
 
     //Wear
     //noinspection GradleCompatible
-    compile "com.google.android.support:wearable:$wear_version"
+    implementation "com.google.android.support:wearable:$wear_version"
     provided "com.google.android.wearable:wearable:$wear_version"
-    compile "com.google.android.gms:play-services-wearable:$wear_gms_version"
+    implementation "com.google.android.gms:play-services-wearable:$wear_gms_version"
 
     //kotlin
-    compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
 
     //RxKotlin
-    compile group: 'io.reactivex', name: 'rxkotlin', version: rx_kotlin
-    compile group: 'io.reactivex', name: 'rxandroid', version: rx_android
+    implementation group: 'io.reactivex', name: 'rxkotlin', version: rx_kotlin
+    implementation group: 'io.reactivex', name: 'rxandroid', version: rx_android
 
     //Dagger
-    compile "com.google.dagger:dagger:$dagger_version"
+    implementation "com.google.dagger:dagger:$dagger_version"
     kapt "com.google.dagger:dagger-compiler:$dagger_version"
 }
