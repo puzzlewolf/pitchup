@@ -44,7 +44,7 @@ ext {
     wear_version = '2.1.0'
     wear_gms_version = '10.2.6'
     rx_kotlin = '2.4.0'
-    rx_android = '2.1.0'
+    rx_android = '2.1.1'
     dagger_version = '2.10'
     speedview_version='1.1.4'
 }
