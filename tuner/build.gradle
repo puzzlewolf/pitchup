@@ -51,8 +51,8 @@ dependencies {
     api "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
 
     //RxKotlin
-    api group: 'io.reactivex', name: 'rxkotlin', version: rx_kotlin
-    api group: 'io.reactivex', name: 'rxandroid', version: rx_android
+    api group: 'io.reactivex.rxjava2', name: 'rxkotlin', version: rx_kotlin
+    api group: 'io.reactivex.rxjava2', name: 'rxandroid', version: rx_android
 }
 
 // Bintray vars

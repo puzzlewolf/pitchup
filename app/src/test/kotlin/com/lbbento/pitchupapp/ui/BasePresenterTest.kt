@@ -5,7 +5,7 @@ import com.nhaarman.mockito_kotlin.verify
 import org.junit.Test
 import rx.subscriptions.CompositeSubscription
 
-class TestBasePresenter(override val subscriptions: CompositeSubscription) : BasePresenter<BaseView>()
+class TestBasePresenter(override val disposables: CompositeSubscription) : BasePresenter<BaseView>()
 
 class BasePresenterTest {
 

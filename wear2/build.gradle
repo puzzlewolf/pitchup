@@ -67,8 +67,8 @@ dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
 
     //RxKotlin
-    implementation group: 'io.reactivex', name: 'rxkotlin', version: rx_kotlin
-    implementation group: 'io.reactivex', name: 'rxandroid', version: rx_android
+    implementation group: 'io.reactivex.rxjava2', name: 'rxkotlin', version: rx_kotlin
+    implementation group: 'io.reactivex.rxjava2', name: 'rxandroid', version: rx_android
 
     //Dagger
     implementation "com.google.dagger:dagger:$dagger_version"

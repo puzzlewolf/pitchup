@@ -1,14 +1,14 @@
 package com.lbbento.pitchupwear.ui
 
 import android.support.annotation.CallSuper
-import rx.Observable
-import rx.subscriptions.CompositeSubscription
+import io.reactivex.Observable
+import io.reactivex.disposables.CompositeDisposable
 
 abstract class BasePresenter<V : BaseView> : BasePresenterView {
 
     lateinit var mView: V
 
-    open val subscriptions: CompositeSubscription by lazy { CompositeSubscription() }
+    open val disposables: CompositeDisposable by lazy { CompositeDisposable() }
 
     @CallSuper
     override fun onAttachedToWindow(view: BaseView) {
@@ -30,13 +30,13 @@ abstract class BasePresenter<V : BaseView> : BasePresenterView {
 
     @CallSuper
     override fun onStop() {
-        subscriptions.unsubscribe()
+        disposables.dispose()
     }
 
     fun <T> Observable<T>.subscribeAndManage(onNext: (T) -> Unit = {},
                                              onError: () -> Unit = {},
                                              onComplete: () -> Unit = {}) {
-        subscriptions.add(subscribe(
+        disposables.add(subscribe(
                 { result -> onNext(result) },
                 { onError() },
                 { onComplete() }))

@@ -1,6 +1,6 @@
 buildscript {
-    ext.kotlin_version = '1.2.51'
-    ext.gradle_version = '3.2.0'
+    ext.kotlin_version = '1.5.30'
+    ext.gradle_version = '4.2.0'
 
     repositories {
         maven { url 'https://maven.google.com' }
@@ -34,8 +34,8 @@ ext {
     tests_junit_version = '4.12'
     wear_version = '2.1.0'
     wear_gms_version = '10.2.6'
-    rx_kotlin = '2.0.0-RC1'
-    rx_android = '0.22.0'
+    rx_kotlin = '2.4.0'
+    rx_android = '2.1.0'
     dagger_version = '2.10'
     speedview_version='1.1.4'
 }

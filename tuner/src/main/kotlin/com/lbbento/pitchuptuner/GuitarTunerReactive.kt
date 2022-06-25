@@ -4,7 +4,8 @@ import com.lbbento.pitchupcore.InstrumentType.GUITAR
 import com.lbbento.pitchuptuner.audio.PitchAudioRecorder
 import com.lbbento.pitchuptuner.service.TunerResult
 import com.lbbento.pitchuptuner.service.TunerService
-import rx.Observable
+import io.reactivex.Observable
+
 
 class GuitarTunerReactive(pitchAudioRecord: PitchAudioRecorder) {
 
@@ -19,7 +20,7 @@ class GuitarTunerReactive(pitchAudioRecord: PitchAudioRecorder) {
     }
 
     fun listenToNotes(): Observable<TunerResult> = tunerService.getNotes()
-            .distinctUntilChanged { it.note + it.tuningStatus.name }
+            .distinctUntilChanged { l, r -> l.note == r.note && l.tuningStatus.name == r.tuningStatus.name }
 
     private fun initializeTunerService(pitchAudioRecord: PitchAudioRecorder) = TunerService(pitchAudioRecord, GUITAR)
 }
