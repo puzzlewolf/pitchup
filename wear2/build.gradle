@@ -63,7 +63,7 @@ dependencies {
     //Wear
     //noinspection GradleCompatible
     implementation "com.google.android.support:wearable:$wear_version"
-    provided "com.google.android.wearable:wearable:$wear_version"
+    compileOnly "com.google.android.wearable:wearable:$wear_version"
     implementation "com.google.android.gms:play-services-wearable:$wear_gms_version"
 
     //kotlin
