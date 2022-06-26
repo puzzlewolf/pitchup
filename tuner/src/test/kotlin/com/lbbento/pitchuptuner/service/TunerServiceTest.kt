@@ -14,7 +14,7 @@ import com.nhaarman.mockito_kotlin.verify
 import com.nhaarman.mockito_kotlin.whenever
 import org.junit.Assert.assertEquals
 import org.junit.Test
-import rx.observers.TestSubscriber
+import io.reactivex.observers.TestObserver
 
 private class TestableTunerService(pitchAudioRecorder: PitchAudioRecorder, override val torsoYin: Yin, override val pitchHandler: PitchHandler) : TunerService(pitchAudioRecorder, GUITAR)
 
@@ -29,14 +29,14 @@ class TunerServiceTest {
     fun shouldCallOnCompleteWhenStoppedOrFailedToStartRecording() {
         whenever(mockPitchAudioRecord.recordingState).thenReturn(RECORDSTATE_STOPPED)
 
-        val testSubscriber = TestSubscriber<TunerResult>()
-        tunerService.getNotes().subscribe(testSubscriber)
-        testSubscriber.awaitTerminalEvent()
+        val testObserver = TestObserver<TunerResult>()
+        tunerService.getNotes().subscribe(testObserver)
+        testObserver.awaitTerminalEvent()
 
         verify(mockPitchAudioRecord).startRecording()
         verify(mockPitchAudioRecord).recordingState
 
-        testSubscriber.assertTerminalEvent()
+        testObserver.assertNoErrors().assertComplete()
     }
 
     @Test
@@ -56,30 +56,33 @@ class TunerServiceTest {
         whenever(pitchResult.expectedFrequency).thenReturn(3.0)
         whenever(pitchResult.diffCents).thenReturn(10.0)
 
-        val testSubscriber = TestSubscriber<TunerResult>()
+        val testObserver = TestObserver<TunerResult>()
         tunerService.getNotes()
                 .doOnNext({ whenever(mockPitchAudioRecord.recordingState).thenReturn(RECORDSTATE_STOPPED) })
-                .subscribe(testSubscriber)
-        testSubscriber.awaitTerminalEvent()
+                .subscribe(testObserver)
+        testObserver.awaitTerminalEvent()
 
         verify(mockPitchAudioRecord).startRecording()
         verify(mockPitchAudioRecord).read()
         verify(mockTorsoYin).getPitch(buffer)
         verify(pitchHandler).handlePitch(123F)
-        assertEquals(testSubscriber.onNextEvents[0], TunerResult("E", TUNED, 3.0, 3.3, 10.0))
+        testObserver.assertValue(TunerResult("E", TUNED, 3.0, 3.3, 10.0))
     }
 
     @Test
     fun shouldReturnOnErrorWhenIllegalStateExceptionOccurredDuringRecording() {
         whenever(mockPitchAudioRecord.startRecording()).thenThrow(IllegalStateException())
 
-        val testSubscriber = TestSubscriber<TunerResult>()
-        tunerService.getNotes().subscribe(testSubscriber)
-        testSubscriber.awaitTerminalEvent()
+        val testObserver = TestObserver<TunerResult>()
+        tunerService.getNotes().subscribe(testObserver)
+        testObserver.awaitTerminalEvent()
 
-        assertEquals(testSubscriber.onErrorEvents[0].javaClass, IllegalStateException::class.java)
+        testObserver.assertError(IllegalStateException::class.java)
 
-        testSubscriber.assertTerminalEvent()
+        // assertTerminalEvent()
+        // Assert that a single terminal event occurred, either onCompleted() or onError(java.lang.Throwable).
+        // After assertError, this is just a less specific assertError?
+        // testObserver.assertTerminalEvent()
         verify(mockPitchAudioRecord).startRecording()
     }
 
@@ -90,13 +93,12 @@ class TunerServiceTest {
         whenever(mockTorsoYin.getPitch(buffer)).thenThrow(NumberFormatException())
         whenever(mockPitchAudioRecord.recordingState).thenReturn(RECORDSTATE_RECORDING)
 
-        val testSubscriber = TestSubscriber<TunerResult>()
-        tunerService.getNotes().subscribe(testSubscriber)
-        testSubscriber.awaitTerminalEvent()
+        val testObserver = TestObserver<TunerResult>()
+        tunerService.getNotes().subscribe(testObserver)
+        testObserver.awaitTerminalEvent()
 
-        assertEquals(testSubscriber.onErrorEvents[0].javaClass, RuntimeException::class.java)
+        testObserver.assertError(RuntimeException::class.java)
 
-        testSubscriber.assertTerminalEvent()
         verify(mockPitchAudioRecord).startRecording()
     }
 

@@ -9,10 +9,10 @@ import com.nhaarman.mockito_kotlin.mock
 import com.nhaarman.mockito_kotlin.verify
 import com.nhaarman.mockito_kotlin.whenever
 import org.junit.Test
-import rx.Observable
-import rx.Observable.error
-import rx.Observable.just
-import rx.Subscription
+import io.reactivex.Observable
+import io.reactivex.Observable.error
+import io.reactivex.Observable.just
+import io.reactivex.disposables.Disposable
 
 class GuitarTunerTest {
 
@@ -43,7 +43,7 @@ class GuitarTunerTest {
     @Test
     fun shouldUnsubscribeFromGetNotesService() {
         val mockObservable: Observable<TunerResult> = mock()
-        val mockSubscription: Subscription = mock()
+        val mockSubscription: Disposable = mock()
 
         whenever(mockTunerService.getNotes()).thenReturn(mockObservable)
         whenever(mockObservable.observeOn(appSchedulers.ui())).thenReturn(mockObservable)
@@ -55,7 +55,7 @@ class GuitarTunerTest {
 
         guitarTuner.stop()
 
-        verify(mockSubscription).unsubscribe()
+        verify(mockSubscription).dispose()
     }
 
     @Test

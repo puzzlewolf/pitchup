@@ -3,19 +3,19 @@ package com.lbbento.pitchupapp.ui
 import com.nhaarman.mockito_kotlin.mock
 import com.nhaarman.mockito_kotlin.verify
 import org.junit.Test
-import rx.subscriptions.CompositeSubscription
+import io.reactivex.disposables.CompositeDisposable
 
-class TestBasePresenter(override val disposables: CompositeSubscription) : BasePresenter<BaseView>()
+class TestBasePresenter(override val disposables: CompositeDisposable) : BasePresenter<BaseView>()
 
 class BasePresenterTest {
 
-    val mockSubscription: CompositeSubscription = mock()
+    val mockSubscription: CompositeDisposable = mock()
     val presenter = TestBasePresenter(mockSubscription)
 
     @Test
     fun shouldUnsubscribeOnDestroy() {
         presenter.onDestroy()
 
-        verify(mockSubscription).unsubscribe()
+        verify(mockSubscription).dispose()
     }
 }

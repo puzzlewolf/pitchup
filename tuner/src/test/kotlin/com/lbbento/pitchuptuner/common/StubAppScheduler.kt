@@ -1,21 +1,21 @@
 package com.lbbento.pitchuptuner.common
 
 import com.lbbento.pitchuptuner.AppSchedulers
-import rx.Scheduler
-import rx.schedulers.Schedulers
+import io.reactivex.Scheduler
+import io.reactivex.schedulers.Schedulers
 
 internal class StubAppScheduler : AppSchedulers() {
 
     override fun io(): Scheduler {
-        return Schedulers.immediate()
+        return Schedulers.trampoline()
     }
 
     override fun ui(): Scheduler {
-        return Schedulers.immediate()
+        return Schedulers.trampoline()
     }
 
     override fun computation(): Scheduler {
-        return Schedulers.immediate()
+        return Schedulers.trampoline()
     }
 
 }

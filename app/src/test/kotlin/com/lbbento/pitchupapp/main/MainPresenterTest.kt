@@ -9,8 +9,8 @@ import com.lbbento.pitchuptuner.service.TunerResult
 import com.nhaarman.mockito_kotlin.*
 import org.junit.Before
 import org.junit.Test
-import rx.Observable
-import rx.Observable.just
+import io.reactivex.Observable
+import io.reactivex.Observable.just
 
 class MainPresenterTest {
 
